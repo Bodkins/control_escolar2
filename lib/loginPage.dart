@@ -19,17 +19,32 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: Color.fromRGBO(249, 170, 51, 1),
+      //backgroundColor: Color.fromRGBO(249, 170, 51, 1),
       key: _formKey,
       body: Container(
-
+decoration: BoxDecoration(
+  gradient: new LinearGradient(colors: [
+    Color.fromRGBO(249, 170, 51, 1),
+    Color.fromRGBO(249, 170, 51, 0.8),
+    Color.fromRGBO(249, 170, 51, 0.6),
+    Color.fromRGBO(249, 170, 51, 0.3),
+  ],
+    begin: const FractionalOffset(1.0, 0.1),
+    end: const FractionalOffset(1, 0.9),
+  ),
+),
         child: Column(
           children: <Widget>[
             Container(
               height: 300,
+
               decoration: BoxDecoration(
-                color: Color.fromRGBO(249, 170, 51,1 ),
+               // image: DecorationImage(
+                //  image: AssetImage('assets/images/background.jpg'),
+               // ) ,
+                //color: Color.fromRGBO(249, 170, 51,1 ),
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Stack(
@@ -48,6 +63,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -76,7 +92,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      color: Color.fromRGBO(249, 170, 51, 1),
+                      color: Color.fromRGBO(249, 170, 51, 0),
                       child: Center(
                         child: Text(
                           "Ingresar",
@@ -102,7 +118,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
                   SizedBox(
                     height: 50,
-                    child: RaisedButton(
+                    child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       color: Colors.white,
