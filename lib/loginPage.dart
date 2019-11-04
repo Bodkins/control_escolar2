@@ -68,7 +68,7 @@ decoration: BoxDecoration(
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
                   textFormField(
@@ -133,7 +133,7 @@ decoration: BoxDecoration(
                         ),
                       ),
                       onPressed: (){
-                        //Navigator.of(context).pop();
+                        Navigator.pushNamed(context, '/signUp');
                       },
                     ),
                   ),

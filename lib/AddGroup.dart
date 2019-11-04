@@ -114,7 +114,7 @@ class _AddGroupState extends State<AddGroup> {
       child: TextFormField(
         validator: (value) {
           if (value.isEmpty) {
-            return 'Introduce algun texto';
+            return 'Campo obligatorio';
           }
         },
         controller: t,

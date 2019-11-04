@@ -14,6 +14,8 @@ import 'principalPage.dart';
 
 import 'package:control_escolar/loginPage.dart';
 
+import 'package:control_escolar/signUpPage.dart';
+
 
 
 void main() => runApp(new MyApp());
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
       home: MyLoginPage(),
       routes: <String, WidgetBuilder>{
         '/accept': (BuildContext context) => MyHomePage(),
+        '/signUp': (BuildContext context) => SignUpPage(),
+        '/loginPage': (BuildContext context) => MyLoginPage(),
         //'/cancel': (BuildContext context) => principalView(),
       },
 
