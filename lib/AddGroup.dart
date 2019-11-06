@@ -36,9 +36,8 @@ class _AddGroupState extends State<AddGroup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(249, 170, 51,1 ),
+        backgroundColor: Color.fromRGBO(249, 170, 51, 1),
         title: Text(widget.edit ? "Editar Grupos" : "Agregar Grupo"),
       ),
       body: Form(
@@ -96,7 +95,6 @@ class _AddGroupState extends State<AddGroup> {
                     }
                   },
                 ),
-
               ],
             ),
           ),

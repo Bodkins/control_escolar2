@@ -9,6 +9,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController newUserController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -33,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 300,
+              height: 250,
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -59,17 +60,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: <Widget>[
                   textFormField(newUserController, "Nombre",
                       "Nombre de usuario", Icons.person, "Nombre"),
-                  textFormField(passwordController, "Contraseña",
+                  textFormField(emailController, "Email", "Cuenta de email",
+                      Icons.alternate_email, "Email"),
+                  textFormFieldPassword(passwordController, "Contraseña",
                       "Ingresa tu contraseña", Icons.vpn_key, "Contraseña"),
-                  textFormField(confirmPasswordController, "Confirmar",
-                      "Confirma tu contraseña", Icons.vpn_key, "Confirmar"),
+                  textFormFieldPassword(
+                      confirmPasswordController,
+                      "Confirmar contraseña",
+                      "Confirma tu contraseña",
+                      Icons.vpn_key,
+                      "Confirmar"),
                   SizedBox(
                     height: 40,
                   ),
                   SizedBox(
                     height: 50,
-                    child: RaisedButton(
-                      color: Colors.blueGrey,
+                    child: FlatButton(
+                      color: Colors.transparent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
@@ -85,7 +92,27 @@ class _SignUpPageState extends State<SignUpPage> {
                         Navigator.pushNamed(context, '/loginPage');
                       },
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: FlatButton(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          "Cancelar",
+                          style: TextStyle(
+                              color: Color.fromRGBO(249, 170, 51, 0.5),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/loginPage');
+                      },
+                    ),
+                  ),
                 ],
               ),
             )
@@ -101,7 +128,67 @@ class _SignUpPageState extends State<SignUpPage> {
       padding: const EdgeInsets.only(
         top: 10,
       ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(249, 170, 51, 0.5),
+              blurRadius: 5.0,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: TextFormField(
+          cursorColor: Colors.deepOrangeAccent,
+          style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Introduce algun texto';
+            }
+          },
+          controller: t,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              iconData,
+              color: Color.fromRGBO(249, 170, 51, 0.2),
+            ),
+            hoverColor: Color.fromRGBO(249, 170, 51, 0.7),
+            fillColor: Color.fromRGBO(249, 170, 51, 0.7),
+            hintText: label,
+            border: InputBorder.none,
+            hintStyle: TextStyle(color: Colors.grey[400]),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+textFormFieldPassword(TextEditingController t, String label, String hint,
+    IconData iconData, String initialValue) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      top: 10,
+    ),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(249, 170, 51, 0.5),
+            blurRadius: 5.0,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
       child: TextFormField(
+        obscureText: true,
+        cursorColor: Colors.deepOrangeAccent,
+        style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
         validator: (value) {
           if (value.isEmpty) {
             return 'Introduce algun texto';
@@ -110,11 +197,18 @@ class _SignUpPageState extends State<SignUpPage> {
         controller: t,
         textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
-            prefixIcon: Icon(iconData),
-            hintText: label,
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+          prefixIcon: Icon(
+            iconData,
+            color: Color.fromRGBO(249, 170, 51, 0.2),
+          ),
+          hoverColor: Color.fromRGBO(249, 170, 51, 0.7),
+          fillColor: Color.fromRGBO(249, 170, 51, 0.7),
+          hintText: label,
+          border: InputBorder.none,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+        ),
       ),
-    );
-  }
+    ),
+  );
 }
+
