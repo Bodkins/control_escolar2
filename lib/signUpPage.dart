@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+
+
+bool _formComplete = false;
+String _password ;
+String _passwordConfirm ;
 class SignUpPage extends StatefulWidget {
+
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -16,9 +22,12 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     var _isEnable = null;
 
+
     return Scaffold(
-      key: _formKey,
-      body: Container(
+
+      body:Form(
+        key: _formKey,
+        child:Container(
         decoration: BoxDecoration(
           gradient: new LinearGradient(
             colors: [
@@ -58,13 +67,13 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
-                  textFormField(newUserController, "Nombre",
+                  textFormFieldName(newUserController, "Nombre",
                       "Nombre de usuario", Icons.person, "Nombre"),
                   textFormField(emailController, "Email", "Cuenta de email",
                       Icons.alternate_email, "Email"),
                   textFormFieldPassword(passwordController, "Contraseña",
                       "Ingresa tu contraseña", Icons.vpn_key, "Contraseña"),
-                  textFormFieldPassword(
+                  textFormFieldConfirmPassword(
                       confirmPasswordController,
                       "Confirmar contraseña",
                       "Confirma tu contraseña",
@@ -89,7 +98,17 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/loginPage');
+
+
+
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            print(_password);
+                            print(_passwordConfirm);
+                            Navigator.pushNamed(context, '/loginPage');
+                          }
+
+
                       },
                     ),
                   ),
@@ -119,6 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
       ),
+      )
     );
   }
 
@@ -147,6 +167,12 @@ class _SignUpPageState extends State<SignUpPage> {
             if (value.isEmpty) {
               return 'Introduce algun texto';
             }
+            else {
+              if(!value.contains('@')){
+                return 'Email invalido';
+              }
+
+            }
           },
           controller: t,
           textCapitalization: TextCapitalization.words,
@@ -167,7 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 }
 
-textFormFieldPassword(TextEditingController t, String label, String hint,
+textFormFieldName(TextEditingController t, String label, String hint,
     IconData iconData, String initialValue) {
   return Padding(
     padding: const EdgeInsets.only(
@@ -186,7 +212,6 @@ textFormFieldPassword(TextEditingController t, String label, String hint,
         ],
       ),
       child: TextFormField(
-        obscureText: true,
         cursorColor: Colors.deepOrangeAccent,
         style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
         validator: (value) {
@@ -212,3 +237,111 @@ textFormFieldPassword(TextEditingController t, String label, String hint,
   );
 }
 
+
+textFormFieldPassword(TextEditingController t, String label, String hint,
+    IconData iconData, String initialValue) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      top: 10,
+    ),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(249, 170, 51, 0.5),
+            blurRadius: 5.0,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        obscureText: true,
+        cursorColor: Colors.deepOrangeAccent,
+        style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
+
+
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Introduce contraseña';
+          }
+          else{
+            if(value.length<=8){
+              return 'La contraseña debe de ser de al menos 8 caracteres';
+            }
+          }
+        },
+        onSaved: (value) => _password = value ,
+
+        controller: t,
+        textCapitalization: TextCapitalization.words,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            iconData,
+            color: Color.fromRGBO(249, 170, 51, 0.2),
+          ),
+          hoverColor: Color.fromRGBO(249, 170, 51, 0.7),
+          fillColor: Color.fromRGBO(249, 170, 51, 0.7),
+          hintText: label,
+          border: InputBorder.none,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+        ),
+      ),
+    ),
+  );
+}
+
+
+textFormFieldConfirmPassword(TextEditingController t, String label, String hint,
+    IconData iconData, String initialValue) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      top: 10,
+    ),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(249, 170, 51, 0.5),
+            blurRadius: 5.0,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        obscureText: true,
+        cursorColor: Colors.deepOrangeAccent,
+        style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
+        onSaved: (value) => _passwordConfirm = value ,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Confirmar contraseña';
+          }
+          else{
+            if(_passwordConfirm!=_password){
+
+return 'la contraseña no son iguales';
+            }
+
+          }
+        },
+        controller: t,
+        textCapitalization: TextCapitalization.words,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            iconData,
+            color: Color.fromRGBO(249, 170, 51, 0.2),
+          ),
+          hoverColor: Color.fromRGBO(249, 170, 51, 0.7),
+          fillColor: Color.fromRGBO(249, 170, 51, 0.7),
+          hintText: label,
+          border: InputBorder.none,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+        ),
+      ),
+    ),
+  );
+}

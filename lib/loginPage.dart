@@ -101,7 +101,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                       onPressed: () {
     if(_formKey.currentState.validate()) {
-
       Navigator.pushNamed(context, '/accept');
     }
                       },
@@ -174,7 +173,12 @@ textFormField(
           style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
           validator: (value) {
             if (value.isEmpty) {
-              return 'Introduce algun texto';
+              return 'Introduce Email';
+            }
+            else{
+              if(!value.contains('@')){
+                return 'Email invalido';
+              }
             }
 
           },
