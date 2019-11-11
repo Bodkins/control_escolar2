@@ -10,39 +10,50 @@ import 'dart:io';
 
 import 'package:flutter/painting.dart';
 
-import 'package:control_escolar/studentsPage.dart';
 
-class MyHomePage extends StatefulWidget {
+class StudentsPage extends StatefulWidget {
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+
+  _StudentsPageState createState() => _StudentsPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _StudentsPageState extends State<StudentsPage> {
+
   @override
-  void didUpdateWidget(MyHomePage oldWidget) {
+  void didUpdateWidget(StudentsPage oldWidget) {
+
     super.didUpdateWidget(oldWidget);
 
     setState(() {});
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
-        title: Text('Grupos'),
-        backgroundColor: Color.fromRGBO(249, 170, 51, 1),
+
+        title: Text('Estudiantes'),
+        //backgroundColor: Color.fromRGBO(249, 170, 51,1 ),
+        backgroundColor: Colors.green,
         actions: <Widget>[],
+
       ),
+
+      //Metodo en future: para obtener todos los estudiantes (cambiar getAllClients())
       body: FutureBuilder<List<Client>>(
         future: ClientDatabaseProvider.db.getAllClients(),
         builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+
           if (snapshot.hasData) {
             return ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 Client item = snapshot.data[index];
-
                 return Dismissible(
                   key: UniqueKey(),
                   background: Container(
@@ -68,9 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => StudentsPage()
-                      )
-                      );
+                          builder: (context) => AddGroup(
+                            true,
+                            client: item,
+                          )));
                     },
                   ),
                   onDismissed: (direction) {
@@ -82,16 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text("Confirmar"),
-                          content: const Text("¿Deseas borrar el grupo?"),
+                          content: const Text("¿Deseas borrar este estudiante?"),
                           actions: <Widget>[
                             FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
 
+                              onPressed: () {
+                                Navigator.of(context ).pop(true);
                                 ClientDatabaseProvider.db
                                     .deleteClientWhitID(item.id);
-
-                                didUpdateWidget(MyHomePage());
+                                didUpdateWidget(StudentsPage());
                               },
                               child: const Text("Aceptar"),
                             ),
@@ -114,15 +125,18 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       ),
+
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromRGBO(249, 170, 51, 1),
+        color: Color.fromRGBO(249, 170, 51,1 ),
         shape: const CircularNotchedRectangle(),
+
         child: Container(
           height: 50.0,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey,
+
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => AddGroup(false)));
