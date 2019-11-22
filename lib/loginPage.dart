@@ -135,6 +135,34 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      color: Colors.transparent,
+                      disabledColor: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Ayuda",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20),
+                        ),
+                      ),
+                      onPressed: () {
+
+                        Navigator.pushNamed(context, '/helpPage');
+
+
+                      },
+                    ),
+                  ),
+
                 ],
               ),
             ),

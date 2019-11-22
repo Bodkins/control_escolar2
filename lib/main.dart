@@ -1,4 +1,5 @@
 import 'package:control_escolar/db/moor_database.dart';
+import 'package:control_escolar/helpPage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
             '/signUp': (BuildContext context) => SignUpPage(),
             '/loginPage': (BuildContext context) => MyLoginPage(),
             '/studentsPage': (BuildContext context) => StudentsPage(),
+            '/helpPage': (BuildContext context) => MyHelpPage(),
             //'/cancel': (BuildContext context) => principalView(),
           },
         )
