@@ -1,16 +1,12 @@
+import 'package:control_escolar/db/moor_database.dart';
+
 import 'package:flutter/material.dart';
 
-import 'package:control_escolar/model/client_model.dart';
+import 'package:provider/provider.dart';
 
-import 'package:control_escolar/db/database.dart';
+//import 'package:control_escolar/db/database.dart';
 
 class AddGroup extends StatefulWidget {
-  final bool edit;
-
-  final Client client;
-
-  AddGroup(this.edit, {this.client}) : assert(edit == true || client == null);
-
   @override
   _AddGroupState createState() => _AddGroupState();
 }
@@ -18,19 +14,13 @@ class AddGroup extends StatefulWidget {
 class _AddGroupState extends State<AddGroup> {
   TextEditingController nameGroupEditingController = TextEditingController();
 
-  TextEditingController nameMateEditingConrtoller = TextEditingController();
+  TextEditingController nameMateEditingController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-
-    if (widget.edit == true) {
-      nameGroupEditingController.text = widget.client.nameGroup;
-
-      nameMateEditingConrtoller.text = widget.client.nameMate;
-    }
   }
 
   @override
@@ -38,7 +28,7 @@ class _AddGroupState extends State<AddGroup> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(249, 170, 51, 1),
-        title: Text(widget.edit ? "Editar Grupos" : "Agregar Grupo"),
+        title: Text('Nuevo grupo'),
       ),
       body: Form(
         key: _formKey,
@@ -52,17 +42,17 @@ class _AddGroupState extends State<AddGroup> {
                   size: 300,
                 ),
                 textFormField(
-                    nameGroupEditingController,
-                    "Nombre del grupo",
-                    "Introduzca el nombre del grupo",
-                    Icons.group,
-                    widget.edit ? widget.client.nameGroup : "nombre del grupo"),
+                  nameGroupEditingController,
+                  "Nombre del grupo",
+                  "Introduzca el nombre del grupo",
+                  Icons.group,
+                ),
                 textFormField(
-                    nameMateEditingConrtoller,
-                    "Nombre de la materia",
-                    "Introduzca la materia",
-                    Icons.assessment,
-                    widget.edit ? widget.client.nameGroup : "Materia"),
+                  nameMateEditingController,
+                  "Nombre de la materia",
+                  "Introduzca la materia",
+                  Icons.assessment,
+                ),
                 RaisedButton(
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
@@ -75,24 +65,16 @@ class _AddGroupState extends State<AddGroup> {
                         color: Colors.white),
                   ),
                   onPressed: () async {
-                    if (!_formKey.currentState.validate()) {
-                      Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('procesando datos...')));
-                    } else if (widget.edit == true) {
-                      ClientDatabaseProvider.db.updateClient(new Client(
-                          id: widget.client.id,
-                          nameGroup: nameGroupEditingController.text,
-                          nameMate: nameMateEditingConrtoller.text));
-
-                      Navigator.pop(context);
-                    } else {
-                      await ClientDatabaseProvider.db.addClientToDatabase(
-                          new Client(
-                              nameGroup: nameGroupEditingController.text,
-                              nameMate: nameMateEditingConrtoller.text));
-
+                    if (_formKey.currentState.validate()) {
+                      final database = Provider.of<AppDatabase>(context);
+                      final group = Group(
+                        nameGroup: nameGroupEditingController.text,
+                        nameSubject: nameMateEditingController.text,
+                      );
+                      database.insertGroup(group);
                       Navigator.pop(context);
                     }
+                    
                   },
                 ),
               ],
@@ -103,8 +85,8 @@ class _AddGroupState extends State<AddGroup> {
     );
   }
 
-  textFormField(TextEditingController t, String label, String hint,
-      IconData iconData, String initialValue) {
+  textFormField(
+      TextEditingController t, String label, String hint, IconData iconData) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
