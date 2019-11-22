@@ -1,7 +1,12 @@
-import 'package:control_escolar/db/moor_database.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
+import 'package:control_escolar/model/client_model.dart';
+
+import 'package:control_escolar/db/database.dart';
+
+import 'package:control_escolar/AddGroup.dart';
+
+import 'dart:io';
 
 import 'principalPage.dart';
 
@@ -16,23 +21,20 @@ void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider(
-        builder: (_) => AppDatabase(),
-        child: MaterialApp(
-          title: 'Control Escolar',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: MyLoginPage(),
-          routes: <String, WidgetBuilder>{
-            '/accept': (BuildContext context) => MyHomePage(),
-            '/signUp': (BuildContext context) => SignUpPage(),
-            '/loginPage': (BuildContext context) => MyLoginPage(),
-            '/studentsPage': (BuildContext context) => StudentsPage(),
-            //'/cancel': (BuildContext context) => principalView(),
-          },
-        )
+    return MaterialApp(
+      title: 'Control Escolar',
+       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyLoginPage(),
+      routes: <String, WidgetBuilder>{
+        '/accept': (BuildContext context) => MyHomePage(),
+        '/signUp': (BuildContext context) => SignUpPage(),
+        '/loginPage': (BuildContext context) => MyLoginPage(),
+        '/studentsPage': (BuildContext context) => StudentsPage(),
+        //'/cancel': (BuildContext context) => principalView(),
+      },
     );
   }
 }

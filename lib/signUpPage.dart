@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 
-//bool _formComplete = false;
+bool _formComplete = false;
 String _password ;
 String _passwordConfirm ;
 class SignUpPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-//    var _isEnable = null;
+    var _isEnable = null;
 
 
     return Scaffold(
