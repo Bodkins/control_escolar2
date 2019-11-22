@@ -22,7 +22,7 @@ class _StudentsPageState extends State<StudentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grupos'),
+        title: Text('Estudiantes'),
         backgroundColor: Color.fromRGBO(249, 170, 51, 1),
         actions: <Widget>[],
       ),

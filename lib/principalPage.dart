@@ -72,32 +72,50 @@ StreamBuilder<List<Group>> _buildGroupList(BuildContext context) {
       final groups = snapshot.data ?? List();
 
       return ListView.builder(
+
         itemCount: groups.length,
         itemBuilder: (_, index) {
           final itemGroup = groups[index];
-          return _buiListItem(itemGroup, database);
+          return _buiListItem(itemGroup, database, context);
+
         },
+
       );
     },
   );
 }
 
-Widget _buiListItem(Group itemGroup, AppDatabase database) {
-  return Slidable(
-    actionPane: SlidableDrawerActionPane(),
-    secondaryActions: <Widget>[
-      IconSlideAction(
-        caption: 'Borrar',
-        color: Colors.red,
-        icon: Icons.delete,
-        onTap: () => database.deleteGroup(itemGroup),
-      )
+Widget _buiListItem(Group itemGroup, AppDatabase database, BuildContext context) {
+
+  final _formKey = GlobalKey<FormState>();
+  return Column(
+    children: <Widget>[
+  Slidable(
+  actionPane: SlidableDrawerActionPane(),
+  secondaryActions: <Widget>[
+  IconSlideAction(
+  caption: 'Borrar',
+  color: Colors.red,
+  icon: Icons.delete,
+  onTap: () => database.deleteGroup(itemGroup),
+  ),
+
+  ],
+  child: ListTile(
+  title: Text(itemGroup.nameGroup),
+  subtitle: Text(itemGroup.nameSubject),
+    onTap:(){
+
+
+      Navigator.pushNamed(context, '/studentsPage');
+    } ,
+  ),
+  ),
+
     ],
-    child: ListTile(
-      title: Text(itemGroup.nameGroup),
-      subtitle: Text(itemGroup.nameSubject),
-    ),
   );
+
+
 }
 
 /*
