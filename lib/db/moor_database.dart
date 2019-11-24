@@ -1,4 +1,3 @@
-//import 'package:flutter/rendering.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
@@ -15,7 +14,7 @@ class Tasks extends Table {
 }
 
 class Students extends Table {
-  IntColumn get idGroup => integer().customConstraint('NULL REFERENCE Groups(idGroup)')();
+  IntColumn get idGroup => integer().autoIncrement().customConstraint('NULL REFERENCES Groups(idGroup)').nullable()();
   TextColumn get emailStudent => text().withLength(min: 1, max: 20)();
   TextColumn get emailAdvisor => text().withLength(min: 1, max: 20)();
   TextColumn get nameStudent => text().withLength(min: 1, max: 50)();
@@ -23,7 +22,7 @@ class Students extends Table {
 }
 
 class Groups extends Table{
-  IntColumn get idGroup => integer().autoIncrement()();
+  IntColumn get idGroup => integer().autoIncrement().nullable()();
   TextColumn get nameGroup => text()();
   TextColumn get nameSubject => text()();
 

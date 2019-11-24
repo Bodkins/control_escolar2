@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 250,
+              height: 150,
               child: Stack(
                 children: <Widget>[
                   Positioned(

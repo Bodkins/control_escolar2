@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:control_escolar/db/moor_database.dart';
-import 'package:control_escolar/AddGroup.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+
+import 'addStudent.dart';
 
 class StudentsPage extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _StudentsPageState extends State<StudentsPage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: _buildGroupList(context),
+            child: _buildStudentList(context),
             )
         ],
       ),
@@ -44,7 +45,7 @@ class _StudentsPageState extends State<StudentsPage> {
         backgroundColor: Colors.grey,
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddGroup()));
+              .push(MaterialPageRoute(builder: (context) => AddStudent()));
         },
         child: Icon(Icons.add),
       ),
@@ -53,25 +54,25 @@ class _StudentsPageState extends State<StudentsPage> {
   }
 }
 
-StreamBuilder<List<Group>> _buildGroupList(BuildContext context){
+StreamBuilder<List<Student>> _buildStudentList(BuildContext context){
   final database = Provider.of<AppDatabase>(context);
   return StreamBuilder(
-    stream: database.watchAllGroups(),
-    builder: (context, AsyncSnapshot<List<Group>> snapshot){
-      final groups = snapshot.data?? List();
+    stream: database.watchAllStudents(),
+    builder: (context, AsyncSnapshot<List<Student>> snapshot){
+      final students = snapshot.data?? List();
 
       return ListView.builder(
-        itemCount: groups.length,
+        itemCount: students.length,
         itemBuilder: (_, index) {
-          final itemGroup = groups[index];
-          return _buiListItem(itemGroup, database);
+          final itemStudent = students[index];
+          return _buiListItem(itemStudent, database);
         },
       );
     },
   );
 }
 
-Widget _buiListItem (Group itemGroup, AppDatabase database){
+Widget _buiListItem (Student itemStudent, AppDatabase database){
   return Slidable(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
@@ -80,15 +81,15 @@ Widget _buiListItem (Group itemGroup, AppDatabase database){
         color: Colors.red,
         icon: Icons.delete,
         onTap: () => 
-        database.deleteGroup(itemGroup),
+        database.deleteStudent(itemStudent),
       )
     ],
     child: CheckboxListTile(
-      title: Text(itemGroup.nameGroup),
-      subtitle: Text(itemGroup.nameSubject),
+      title: Text(itemStudent.nameStudent),
+      subtitle: Text(itemStudent.emailStudent),
       value: true,
       onChanged: (newValue) {
-        database.updateGroup(itemGroup.copyWith());
+        database.updateStudent(itemStudent.copyWith());
       },
       activeColor: Colors.transparent,
       checkColor: Colors.transparent,

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moor_flutter/moor_flutter.dart' as prefix0;
+
 
 class MyHelpPage extends StatelessWidget {
   @override

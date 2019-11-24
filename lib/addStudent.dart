@@ -8,15 +8,17 @@ import 'package:provider/provider.dart';
 
 
 
-class AddGroup extends StatefulWidget {
+class AddStudent extends StatefulWidget {
   @override
-  _AddGroupState createState() => _AddGroupState();
+  _AddStudentState createState() => _AddStudentState();
 }
 
-class _AddGroupState extends State<AddGroup> {
-  TextEditingController nameGroupEditingController = TextEditingController();
+class _AddStudentState extends State<AddStudent> {
 
-  TextEditingController nameMateEditingController = TextEditingController();
+  TextEditingController nameStudentEditingController = TextEditingController();
+  TextEditingController nameAdvisorEditingController = TextEditingController();
+  TextEditingController emailStudentEditingController = TextEditingController();
+  TextEditingController emailAdvisorEditingController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -44,16 +46,28 @@ class _AddGroupState extends State<AddGroup> {
                   size: 300,
                 ),
                 textFormField(
-                  nameGroupEditingController,
-                  "Nombre del grupo",
-                  "Introduzca el nombre del grupo",
-                  Icons.group,
+                  nameStudentEditingController,
+                  "Nombre del estudiante",
+                  "Introduzca el nombre del estudiante",
+                  Icons.face,
                 ),
                 textFormField(
-                  nameMateEditingController,
-                  "Nombre de la materia",
-                  "Introduzca la materia",
-                  Icons.assessment,
+                  emailStudentEditingController,
+                  "Correo del estudiante",
+                  "Introduzca el correo del estudiante",
+                  Icons.email,
+                ),
+                textFormField(
+                  nameAdvisorEditingController,
+                  "Nombre del tutor",
+                  "Introduzca el nombre del tutor",
+                  Icons.face,
+                ),
+                textFormField(
+                  emailAdvisorEditingController,
+                  "Correo del tutor",
+                  "Introduzca el correo del tutor",
+                  Icons.email,
                 ),
                 RaisedButton(
                   color: Colors.grey,
@@ -69,11 +83,13 @@ class _AddGroupState extends State<AddGroup> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       final database = Provider.of<AppDatabase>(context);
-                      final group = Group(
-                        nameGroup: nameGroupEditingController.text,
-                        nameSubject: nameMateEditingController.text,
+                      final student = Student(
+                        nameStudent: nameStudentEditingController.text,
+                        emailStudent: emailStudentEditingController.text,
+                        nameAdvisor: nameAdvisorEditingController.text,
+                        emailAdvisor: emailAdvisorEditingController.text,
                       );
-                      database.insertGroup(group);
+                      database.insertStudent(student);
                       Navigator.pop(context);
                     }
                     

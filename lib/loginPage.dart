@@ -14,9 +14,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       //backgroundColor: Color.fromRGBO(249, 170, 51, 1),
-
       body: Form(
         key: _formKey,
         child: Container(
@@ -35,7 +35,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 300,
+              height: 200,
               decoration: BoxDecoration(
                 // image: DecorationImage(
                 //  image: AssetImage('assets/images/background.jpg'),

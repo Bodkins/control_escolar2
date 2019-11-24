@@ -14,7 +14,7 @@ class Student extends DataClass implements Insertable<Student> {
   final String nameStudent;
   final String nameAdvisor;
   Student(
-      {@required this.idGroup,
+      {this.idGroup,
       @required this.emailStudent,
       @required this.emailAdvisor,
       @required this.nameStudent,
@@ -161,8 +161,10 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   @override
   GeneratedIntColumn get idGroup => _idGroup ??= _constructIdGroup();
   GeneratedIntColumn _constructIdGroup() {
-    return GeneratedIntColumn('id_group', $tableName, false,
-        $customConstraints: 'NULL REFERENCE Groups(idGroup)');
+    return GeneratedIntColumn('id_group', $tableName, true,
+        hasAutoIncrement: true,
+        declaredAsPrimaryKey: true,
+        $customConstraints: 'NULL REFERENCES Groups(idGroup)');
   }
 
   final VerificationMeta _emailStudentMeta =
@@ -260,7 +262,7 @@ class $StudentsTable extends Students with TableInfo<$StudentsTable, Student> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {idGroup};
   @override
   Student map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
