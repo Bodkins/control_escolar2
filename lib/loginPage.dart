@@ -208,6 +208,7 @@ textFormField(
             }
 
           },
+          keyboardType: TextInputType.emailAddress,
           controller: t,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
@@ -249,10 +250,14 @@ obscureText: true,
           style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
           validator: (value) {
             if (value.isEmpty) {
-              return 'Introduce algun texto';
+              return 'Introduce la contraseña';
+            }
+            if(value.length<5){
+              return 'El tamaño de la contraseña debe ser de al menos 6 carácteres';
             }
 
           },
+          keyboardType: TextInputType.visiblePassword,
           controller: t,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(

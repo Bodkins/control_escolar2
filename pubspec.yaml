@@ -32,6 +32,7 @@ dev_dependencies:
     sdk: flutter
   moor_generator: ^1.4.0
   build_runner:
+  url_launcher:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

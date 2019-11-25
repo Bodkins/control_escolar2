@@ -3,6 +3,7 @@ import 'package:control_escolar/db/moor_database.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'addStudent.dart';
 
@@ -23,9 +24,16 @@ class _StudentsPageState extends State<StudentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Text('Estudiantes'),
         backgroundColor: Color.fromRGBO(249, 170, 51, 1),
-        actions: <Widget>[],
+        actions: <Widget>[
+          FlatButton(
+            child: Icon(Icons.email,color: Colors.white,),
+            onPressed:_sendEmail ,
+          ),
+
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -97,7 +105,14 @@ Widget _buiListItem (Student itemStudent, AppDatabase database){
     ),
   );
 }
-
+_sendEmail() async {
+  const url = 'mailto:test_user@example.org?subject=test&body=hello';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 
 //Configuracion del FloatingButton

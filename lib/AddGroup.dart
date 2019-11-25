@@ -38,20 +38,22 @@ class _AddGroupState extends State<AddGroup> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlutterLogo(
-                  size: 300,
-                ),
+               Container(
+                 child: Image.asset('assets/images/groupos.png'),
+               ),
                 textFormField(
                   nameGroupEditingController,
                   "Nombre del grupo",
                   "Introduzca el nombre del grupo",
                   Icons.group,
+                  "Campo obligatorio"
                 ),
                 textFormField(
                   nameMateEditingController,
                   "Nombre de la materia",
                   "Introduzca la materia",
                   Icons.assessment,
+                    "Campo obligatorio"
                 ),
                 RaisedButton(
                   color: Colors.grey,
@@ -86,7 +88,7 @@ class _AddGroupState extends State<AddGroup> {
   }
 
   textFormField(
-      TextEditingController t, String label, String hint, IconData iconData) {
+      TextEditingController t, String label, String hint, IconData iconData, String mensaje) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -94,7 +96,7 @@ class _AddGroupState extends State<AddGroup> {
       child: TextFormField(
         validator: (value) {
           if (value.isEmpty) {
-            return 'Campo obligatorio';
+            return mensaje;
           }
         },
         controller: t,
@@ -105,6 +107,10 @@ class _AddGroupState extends State<AddGroup> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
       ),
+
     );
   }
+
+
+
 }

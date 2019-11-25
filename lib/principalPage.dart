@@ -101,12 +101,12 @@ Widget _buiListItem(Group itemGroup, AppDatabase database, BuildContext context)
   ),
 
   ],
-  child: ListTile(
-  title: Text(itemGroup.nameGroup),
-  subtitle: Text(itemGroup.nameSubject),
+  child:
+  ListTile(
+
+  title: Text(itemGroup.nameGroup ,style: TextStyle(fontSize: 25, color: Colors.deepOrange),),
+  subtitle: Text(itemGroup.nameSubject, style: TextStyle(fontSize: 20, color: Colors.orange),),
     onTap:(){
-
-
       Navigator.pushNamed(context, '/studentsPage');
     } ,
   ),
