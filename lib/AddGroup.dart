@@ -72,6 +72,7 @@ class _AddGroupState extends State<AddGroup> {
                       final group = Group(
                         nameGroup: nameGroupEditingController.text,
                         nameSubject: nameMateEditingController.text,
+                        emailUserGroup: database.users.emailUser.typeName,
                       );
                       database.insertGroup(group);
                       Navigator.pop(context);

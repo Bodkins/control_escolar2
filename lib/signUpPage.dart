@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'db/moor_database.dart';
 
 
 
@@ -97,14 +100,23 @@ class _SignUpPageState extends State<SignUpPage> {
                               fontSize: 20),
                         ),
                       ),
-                      onPressed: () {
-
-
-
+                      onPressed: () {                        
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-                            print(_password);
-                            print(_passwordConfirm);
+                            final database = Provider.of<AppDatabase>(context);
+                            final user = User(
+                              emailUser: emailController.text,
+                              passwordUser: passwordController.text
+                              );
+                              database.insertUser(user);
+                           
+                           //print(database.users.emailUser);
+                           //print(database.users.passwordUser);
+                           //print(database.users.primaryKey);
+                            //print(_password);
+                            //print(_passwordConfirm);
+                            
+                            
                             Navigator.pushNamed(context, '/loginPage');
                           }
 

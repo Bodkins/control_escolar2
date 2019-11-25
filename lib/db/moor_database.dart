@@ -3,6 +3,7 @@ import 'package:moor_flutter/moor_flutter.dart';
 
 part 'moor_database.g.dart';
 
+/*
 class Tasks extends Table {
   IntColumn get id => integer().autoIncrement()();
   
@@ -12,25 +13,37 @@ class Tasks extends Table {
 
   BoolColumn get completed => boolean().withDefault(Constant(false))();
 }
+*/
 
 class Students extends Table {
-  IntColumn get idGroup => integer().autoIncrement().customConstraint('NULL REFERENCES Groups(idGroup)').nullable()();
-  TextColumn get emailStudent => text().withLength(min: 1, max: 20)();
-  TextColumn get emailAdvisor => text().withLength(min: 1, max: 20)();
+  IntColumn get idStudent => integer().autoIncrement().nullable()();
+  TextColumn get emailStudent => text().withLength(min: 1, max: 50)();
+  TextColumn get emailAdvisor => text().withLength(min: 1, max: 50)();
   TextColumn get nameStudent => text().withLength(min: 1, max: 50)();
   TextColumn get nameAdvisor => text().withLength(min: 1, max: 50)();
+  IntColumn get calif => integer()();
+  IntColumn get idGroupStudent => integer()();
+
+  @override
+  Set<Column> get primaryKey => {idStudent};
 }
 
 class Groups extends Table{
   IntColumn get idGroup => integer().autoIncrement().nullable()();
   TextColumn get nameGroup => text()();
   TextColumn get nameSubject => text()();
+  TextColumn get emailUserGroup => text()();
 
   @override
   Set<Column> get primaryKey => {idGroup};
 }
 
-@UseMoor(tables: [Students, Groups])
+class Users extends Table {
+  TextColumn get emailUser => text()();
+  TextColumn get passwordUser => text().named('passwordUser').customConstraint('passwordUser >= 8')();
+}
+
+@UseMoor(tables: [Students, Groups, Users])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super ((FlutterQueryExecutor.inDatabaseFolder(
     path: 'db.sqlite', 
@@ -54,4 +67,10 @@ class AppDatabase extends _$AppDatabase {
   Future insertGroup(Group group) => into(groups).insert(group);
   Future updateGroup(Group group) => update(groups).replace(group);
   Future deleteGroup(Group group) => delete(groups).delete(group);
+
+  //queries Users
+  Future insertUser(User user) => into(users).insert(user);
+  Future updateUser(User user) => update(users).replace(user);
+  Future deleteUser(User user) => delete(users).delete(user);
+
 }

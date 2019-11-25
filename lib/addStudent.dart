@@ -88,6 +88,8 @@ class _AddStudentState extends State<AddStudent> {
                         emailStudent: emailStudentEditingController.text,
                         nameAdvisor: nameAdvisorEditingController.text,
                         emailAdvisor: emailAdvisorEditingController.text,
+                        calif: 100,
+                        idGroupStudent: 1,
                       );
                       database.insertStudent(student);
                       Navigator.pop(context);
