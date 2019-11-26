@@ -30,7 +30,14 @@ class _StudentsPageState extends State<StudentsPage> {
         actions: <Widget>[
           FlatButton(
             child: Icon(Icons.email,color: Colors.white,),
-            onPressed:_sendEmail ,
+            onPressed:()async{
+              const url = 'mailto:chuy@gmail.org';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            } ,
           ),
 
         ],
@@ -93,7 +100,31 @@ Widget _buiListItem (Student itemStudent, AppDatabase database){
       )
     ],
     child: CheckboxListTile(
-      title: Text(itemStudent.nameStudent),
+      title: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text(itemStudent.nameStudent, textAlign: TextAlign.left,),
+          ),
+          Container(
+            alignment: Alignment.topLeft,
+            child: FlatButton(
+
+            child: Text(itemStudent.emailStudent),
+            onPressed: ()async{
+              var correo= itemStudent.emailStudent.toString();
+              var url = 'mailto:$correo';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
+          ) ,
+          )
+        ],
+
+      ),
       subtitle: Text(itemStudent.emailStudent),
       value: true,
       onChanged: (newValue) {

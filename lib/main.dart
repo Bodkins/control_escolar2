@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'principalPage.dart';
-
 import 'package:control_escolar/loginPage.dart';
 
 import 'package:control_escolar/signUpPage.dart';
 
 import 'package:control_escolar/studentsPage.dart';
+
 
 void main() => runApp(new MyApp());
 
