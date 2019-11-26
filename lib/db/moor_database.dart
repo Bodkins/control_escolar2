@@ -41,6 +41,10 @@ class Groups extends Table{
 class Users extends Table {
   TextColumn get emailUser => text()();
   TextColumn get passwordUser => text().named('passwordUser').customConstraint('passwordUser >= 8')();
+
+  @override
+  Set<Column> get primaryKey => {emailUser};
+
 }
 
 @UseMoor(tables: [Students, Groups, Users])

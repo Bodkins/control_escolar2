@@ -39,7 +39,7 @@ class _AddGroupState extends State<AddGroup> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                Container(
-                 child: Image.asset('assets/images/groupos.png'),
+                 child: Image.asset('assets/images/grupo.png'),
                ),
                 textFormField(
                   nameGroupEditingController,
