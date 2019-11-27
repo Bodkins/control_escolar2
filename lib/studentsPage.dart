@@ -8,11 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'addStudent.dart';
 
 class StudentsPage extends StatefulWidget {
+
   @override
   _StudentsPageState createState() => _StudentsPageState();
 }
 
 class _StudentsPageState extends State<StudentsPage> {
+  String correos;
+
   @override
   void didUpdateWidget(StudentsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -20,8 +23,29 @@ class _StudentsPageState extends State<StudentsPage> {
     setState(() {});
   }
 
+  StreamBuilder<List<Student>> _buildStudentList(BuildContext context ){
+    final database = Provider.of<AppDatabase>(context);
+    return StreamBuilder(
+      stream: database.watchAllStudents(),
+      builder: (context, AsyncSnapshot<List<Student>> snapshot){
+        final students = snapshot.data?? List();
+
+        return ListView.builder(
+          itemCount: students.length,
+          itemBuilder: (_, index) {
+
+            final itemStudent = students[index];
+            correos+= itemStudent.emailStudent.toString()+","+ itemStudent.emailAdvisor.toString()+",";
+            return _buiListItem(itemStudent, database);
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
 
@@ -30,7 +54,18 @@ class _StudentsPageState extends State<StudentsPage> {
         actions: <Widget>[
           FlatButton(
             child: Icon(Icons.email,color: Colors.white,),
-            onPressed:_sendEmail ,
+            onPressed:()async{
+
+              var url = 'mailto:$correos';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+
+
+
+            },
           ),
 
         ],
@@ -93,8 +128,70 @@ Widget _buiListItem (Student itemStudent, QueriesDao database){
       )
     ],
     child: CheckboxListTile(
-      title: Text(itemStudent.nameStudent),
-      subtitle: Text(itemStudent.emailStudent),
+
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+
+          Container(
+
+            height: 20,
+
+            alignment: Alignment.topLeft,
+            child: Text(itemStudent.nameStudent,  style: TextStyle(color: Colors.black),),
+          ),
+          Container(
+            height: 20,
+            alignment: Alignment.topLeft,
+            child: FlatButton(
+
+            child: Text(itemStudent.emailStudent, style: TextStyle(color: Colors.black),),
+            onPressed: ()async{
+              var correo= itemStudent.emailStudent.toString();
+              var url = 'mailto:$correo';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
+
+          ) ,
+          ),
+
+        ],
+
+      ),
+      subtitle: Row(
+        children: <Widget>[
+          Container(
+            margin:EdgeInsets.fromLTRB(20, 0, 10, 0),
+            child: Text("Tutor: ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),),
+          ),
+          Container(
+            height: 20,
+            alignment: Alignment.topLeft,
+            child: Text(itemStudent.nameAdvisor , style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),),
+          ),
+          Container(
+            height: 20,
+            alignment: Alignment.topLeft,
+            child: FlatButton(
+
+              child: Text(itemStudent.emailAdvisor, style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),),
+              onPressed: ()async{
+                var correo= itemStudent.emailAdvisor.toString();
+                var url = 'mailto:$correo';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+            ) ,
+          ),
+        ],
+      ),
       value: true,
       onChanged: (newValue) {
         database.updateStudent(itemStudent.copyWith());

@@ -77,11 +77,12 @@ class QueriesDao extends DatabaseAccessor with _$QueriesDaoMixin {
 
   //queries Students---------------------------------------------------------------------------------------
   Future<List<Student>> getAllStudents() => select(students).get();
+
   
   Stream<List<Student>> watchAllStudents(GeneratedIntColumn idStudent) {
     return (select(students)..where((t) => t.idGroupStudent.equals(idStudent))).watch();
   }
-
+  
   Future insertStudent(Student student) => into(students).insert(student);
   Future updateStudent(Student student) => update(students).replace(student);
   Future deleteStudent(Student student) => delete(students).delete(student);
