@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-        builder: (_) => AppDatabase(),
+        builder: (_) => AppDatabase().queriesDao,
         child: MaterialApp(
           title: 'Control Escolar',
           debugShowCheckedModeBanner: false,

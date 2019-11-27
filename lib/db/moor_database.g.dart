@@ -6,7 +6,7 @@ part of 'moor_database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class Student extends DataClass implements Insertable<Student> {
   final int idStudent;
   final String emailStudent;
@@ -71,7 +71,7 @@ class Student extends DataClass implements Insertable<Student> {
   }
 
   @override
-  T createCompanion<T extends UpdateCompanion<Student>>(bool nullToAbsent) {
+  StudentsCompanion createCompanion(bool nullToAbsent) {
     return StudentsCompanion(
       idStudent: idStudent == null && nullToAbsent
           ? const Value.absent()
@@ -93,7 +93,7 @@ class Student extends DataClass implements Insertable<Student> {
       idGroupStudent: idGroupStudent == null && nullToAbsent
           ? const Value.absent()
           : Value(idGroupStudent),
-    ) as T;
+    );
   }
 
   Student copyWith(
@@ -142,13 +142,13 @@ class Student extends DataClass implements Insertable<Student> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is Student &&
-          other.idStudent == idStudent &&
-          other.emailStudent == emailStudent &&
-          other.emailAdvisor == emailAdvisor &&
-          other.nameStudent == nameStudent &&
-          other.nameAdvisor == nameAdvisor &&
-          other.calif == calif &&
-          other.idGroupStudent == idGroupStudent);
+          other.idStudent == this.idStudent &&
+          other.emailStudent == this.emailStudent &&
+          other.emailAdvisor == this.emailAdvisor &&
+          other.nameStudent == this.nameStudent &&
+          other.nameAdvisor == this.nameAdvisor &&
+          other.calif == this.calif &&
+          other.idGroupStudent == this.idGroupStudent);
 }
 
 class StudentsCompanion extends UpdateCompanion<Student> {
@@ -168,6 +168,20 @@ class StudentsCompanion extends UpdateCompanion<Student> {
     this.calif = const Value.absent(),
     this.idGroupStudent = const Value.absent(),
   });
+  StudentsCompanion.insert({
+    this.idStudent = const Value.absent(),
+    @required String emailStudent,
+    @required String emailAdvisor,
+    @required String nameStudent,
+    @required String nameAdvisor,
+    @required int calif,
+    @required int idGroupStudent,
+  })  : emailStudent = Value(emailStudent),
+        emailAdvisor = Value(emailAdvisor),
+        nameStudent = Value(nameStudent),
+        nameAdvisor = Value(nameAdvisor),
+        calif = Value(calif),
+        idGroupStudent = Value(idGroupStudent);
   StudentsCompanion copyWith(
       {Value<int> idStudent,
       Value<String> emailStudent,
@@ -430,7 +444,7 @@ class Group extends DataClass implements Insertable<Group> {
   }
 
   @override
-  T createCompanion<T extends UpdateCompanion<Group>>(bool nullToAbsent) {
+  GroupsCompanion createCompanion(bool nullToAbsent) {
     return GroupsCompanion(
       idGroup: idGroup == null && nullToAbsent
           ? const Value.absent()
@@ -444,7 +458,7 @@ class Group extends DataClass implements Insertable<Group> {
       emailUserGroup: emailUserGroup == null && nullToAbsent
           ? const Value.absent()
           : Value(emailUserGroup),
-    ) as T;
+    );
   }
 
   Group copyWith(
@@ -478,10 +492,10 @@ class Group extends DataClass implements Insertable<Group> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is Group &&
-          other.idGroup == idGroup &&
-          other.nameGroup == nameGroup &&
-          other.nameSubject == nameSubject &&
-          other.emailUserGroup == emailUserGroup);
+          other.idGroup == this.idGroup &&
+          other.nameGroup == this.nameGroup &&
+          other.nameSubject == this.nameSubject &&
+          other.emailUserGroup == this.emailUserGroup);
 }
 
 class GroupsCompanion extends UpdateCompanion<Group> {
@@ -495,6 +509,14 @@ class GroupsCompanion extends UpdateCompanion<Group> {
     this.nameSubject = const Value.absent(),
     this.emailUserGroup = const Value.absent(),
   });
+  GroupsCompanion.insert({
+    this.idGroup = const Value.absent(),
+    @required String nameGroup,
+    @required String nameSubject,
+    @required String emailUserGroup,
+  })  : nameGroup = Value(nameGroup),
+        nameSubject = Value(nameSubject),
+        emailUserGroup = Value(emailUserGroup);
   GroupsCompanion copyWith(
       {Value<int> idGroup,
       Value<String> nameGroup,
@@ -669,7 +691,7 @@ class User extends DataClass implements Insertable<User> {
   }
 
   @override
-  T createCompanion<T extends UpdateCompanion<User>>(bool nullToAbsent) {
+  UsersCompanion createCompanion(bool nullToAbsent) {
     return UsersCompanion(
       emailUser: emailUser == null && nullToAbsent
           ? const Value.absent()
@@ -677,7 +699,7 @@ class User extends DataClass implements Insertable<User> {
       passwordUser: passwordUser == null && nullToAbsent
           ? const Value.absent()
           : Value(passwordUser),
-    ) as T;
+    );
   }
 
   User copyWith({String emailUser, String passwordUser}) => User(
@@ -699,8 +721,8 @@ class User extends DataClass implements Insertable<User> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is User &&
-          other.emailUser == emailUser &&
-          other.passwordUser == passwordUser);
+          other.emailUser == this.emailUser &&
+          other.passwordUser == this.passwordUser);
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
@@ -710,6 +732,11 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.emailUser = const Value.absent(),
     this.passwordUser = const Value.absent(),
   });
+  UsersCompanion.insert({
+    @required String emailUser,
+    @required String passwordUser,
+  })  : emailUser = Value(emailUser),
+        passwordUser = Value(passwordUser);
   UsersCompanion copyWith(
       {Value<String> emailUser, Value<String> passwordUser}) {
     return UsersCompanion(
@@ -776,7 +803,7 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {emailUser};
   @override
   User map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
@@ -802,13 +829,25 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(const SqlTypeSystem.withDefaults(), e);
+  _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $StudentsTable _students;
   $StudentsTable get students => _students ??= $StudentsTable(this);
   $GroupsTable _groups;
   $GroupsTable get groups => _groups ??= $GroupsTable(this);
   $UsersTable _users;
   $UsersTable get users => _users ??= $UsersTable(this);
+  QueriesDao _queriesDao;
+  QueriesDao get queriesDao => _queriesDao ??= QueriesDao(this as AppDatabase);
   @override
   List<TableInfo> get allTables => [students, groups, users];
+}
+
+// **************************************************************************
+// DaoGenerator
+// **************************************************************************
+
+mixin _$QueriesDaoMixin on DatabaseAccessor<GeneratedDatabase> {
+  $StudentsTable get students => db.students;
+  $GroupsTable get groups => db.groups;
+  $UsersTable get users => db.users;
 }

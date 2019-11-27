@@ -297,21 +297,21 @@ packages:
       name: moor
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.2"
+    version: "2.0.1+1"
   moor_flutter:
     dependency: "direct main"
     description:
       name: moor_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "2.0.0"
   moor_generator:
     dependency: "direct dev"
     description:
       name: moor_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "2.1.1"
   node_interop:
     dependency: transitive
     description:
@@ -442,7 +442,7 @@ packages:
       name: sqlparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.4.0"
   stack_trace:
     dependency: transitive
     description:

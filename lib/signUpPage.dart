@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {                        
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-                            final database = Provider.of<AppDatabase>(context);
+                            final database = Provider.of<QueriesDao>(context);
                             final user = User(
                               emailUser: emailController.text,
                               passwordUser: passwordController.text

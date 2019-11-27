@@ -63,9 +63,9 @@ class _StudentsPageState extends State<StudentsPage> {
 }
 
 StreamBuilder<List<Student>> _buildStudentList(BuildContext context){
-  final database = Provider.of<AppDatabase>(context);
+  final database = Provider.of<QueriesDao>(context);
   return StreamBuilder(
-    stream: database.watchAllStudents(),
+    stream: database.watchAllStudents(database.students.idStudent),
     builder: (context, AsyncSnapshot<List<Student>> snapshot){
       final students = snapshot.data?? List();
 
@@ -80,7 +80,7 @@ StreamBuilder<List<Student>> _buildStudentList(BuildContext context){
   );
 }
 
-Widget _buiListItem (Student itemStudent, AppDatabase database){
+Widget _buiListItem (Student itemStudent, QueriesDao database){
   return Slidable(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[

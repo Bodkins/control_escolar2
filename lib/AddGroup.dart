@@ -68,7 +68,7 @@ class _AddGroupState extends State<AddGroup> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      final database = Provider.of<AppDatabase>(context);
+                      final database = Provider.of<QueriesDao>(context);
                       final group = Group(
                         nameGroup: nameGroupEditingController.text,
                         nameSubject: nameMateEditingController.text,

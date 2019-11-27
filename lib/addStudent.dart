@@ -82,7 +82,7 @@ class _AddStudentState extends State<AddStudent> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      final database = Provider.of<AppDatabase>(context);
+                      final database = Provider.of<QueriesDao>(context);
                       final student = Student(
                         nameStudent: nameStudentEditingController.text,
                         emailStudent: emailStudentEditingController.text,

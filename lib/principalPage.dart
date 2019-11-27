@@ -21,9 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-        builder: (_) => AppDatabase(),
-        child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text('Grupos'),
             backgroundColor: Color.fromRGBO(249, 170, 51, 1),
@@ -34,15 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(child: _buildGroupList(context)),
             ],
           ),
-          /*
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: _buildGroupList(context),
-            )
-        ],
-      ),
-      */
           bottomNavigationBar: BottomAppBar(
             color: Color.fromRGBO(249, 170, 51, 1),
             shape: const CircularNotchedRectangle(),
@@ -60,14 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-        ));
+        );
   }
 }
 
 StreamBuilder<List<Group>> _buildGroupList(BuildContext context) {
-  final database = Provider.of<AppDatabase>(context);
+  final database = Provider.of<QueriesDao>(context);
   return StreamBuilder(
-    stream: database.watchAllGroups(),
+    stream: database.watchAllGroups(database.groups.emailUserGroup),
     builder: (context, AsyncSnapshot<List<Group>> snapshot) {
       final groups = snapshot.data ?? List();
 
@@ -85,9 +74,9 @@ StreamBuilder<List<Group>> _buildGroupList(BuildContext context) {
   );
 }
 
-Widget _buiListItem(Group itemGroup, AppDatabase database, BuildContext context) {
+Widget _buiListItem(Group itemGroup, QueriesDao database, BuildContext context) {
 
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
   return Column(
     children: <Widget>[
   Slidable(
