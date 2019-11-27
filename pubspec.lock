@@ -297,21 +297,33 @@ packages:
       name: moor
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "2.0.1+1"
+=======
+    version: "1.7.2"
+>>>>>>> Stashed changes
   moor_flutter:
     dependency: "direct main"
     description:
       name: moor_flutter
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "2.0.0"
+=======
+    version: "1.7.0"
+>>>>>>> Stashed changes
   moor_generator:
     dependency: "direct dev"
     description:
       name: moor_generator
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "2.1.1"
+=======
+    version: "1.7.1"
+>>>>>>> Stashed changes
   node_interop:
     dependency: transitive
     description:
@@ -367,7 +379,11 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "3.1.0+1"
+=======
+    version: "3.2.0"
+>>>>>>> Stashed changes
   pub_semver:
     dependency: transitive
     description:
@@ -442,7 +458,11 @@ packages:
       name: sqlparser
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "0.4.0"
+=======
+    version: "0.2.0"
+>>>>>>> Stashed changes
   stack_trace:
     dependency: transitive
     description:

@@ -18,7 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
+<<<<<<< Updated upstream
         builder: (_) => AppDatabase().queriesDao,
+=======
+        builder: (_) => AppDatabase(),
+>>>>>>> Stashed changes
         child: MaterialApp(
           title: 'Control Escolar',
           debugShowCheckedModeBanner: false,

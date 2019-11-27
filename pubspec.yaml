@@ -19,7 +19,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< Updated upstream
   moor_flutter: ^2.0.0
+=======
+  moor_flutter: ^1.4.0
+>>>>>>> Stashed changes
   provider: ^3.0.0+1
   flutter_slidable: ^0.5.3
   # The following adds the Cupertino Icons font to your application.
@@ -30,7 +34,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+<<<<<<< Updated upstream
   moor_generator: ^2.0.0
+=======
+  moor_generator: ^1.4.0
+>>>>>>> Stashed changes
   build_runner:
   url_launcher:
 
