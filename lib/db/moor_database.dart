@@ -47,48 +47,13 @@ class Users extends Table {
 
 }
 
-<<<<<<< Updated upstream
-@UseMoor(tables: [Students, Groups, Users], 
-daos: [QueriesDao]
-)
-=======
 @UseMoor(tables: [Students, Groups, Users])
->>>>>>> Stashed changes
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super ((FlutterQueryExecutor.inDatabaseFolder(
     path: 'db.sqlite', 
     logStatements: true)));
 
   @override
-<<<<<<< Updated upstream
-  int get schemaVersion => 1;  
-}
-
-@UseDao(tables: [Students, Groups, Users])
-class QueriesDao extends DatabaseAccessor with _$QueriesDaoMixin { 
-  final AppDatabase db;
-  QueriesDao(this.db) :super (db);
-
-  //queries Groups-----------------------------------------------------------------------------------------
-  Future<List<Group>> getAllGroups() => select(groups).get();
-  
-  Stream<List<Group>> watchAllGroups(GeneratedTextColumn emailGroup) {
-    return (select(groups)..where((group) => group.emailUserGroup.equals(emailGroup.toString()))).watch();
-    }
-
-  Future insertGroup(Insertable<Group> group) => into(groups).insert(group);
-  Future updateGroup(Insertable<Group> group) => update(groups).replace(group);
-  Future deleteGroup(Insertable<Group> group) => delete(groups).delete(group);
-
-  //queries Students---------------------------------------------------------------------------------------
-  Future<List<Student>> getAllStudents() => select(students).get();
-
-  
-  Stream<List<Student>> watchAllStudents(GeneratedIntColumn idStudent) {
-    return (select(students)..where((t) => t.idGroupStudent.equals(idStudent))).watch();
-  }
-  
-=======
   int get schemaVersion => 1;
 
   //queries Students
@@ -96,14 +61,10 @@ class QueriesDao extends DatabaseAccessor with _$QueriesDaoMixin {
   Future<List<Student>> getAllStudents() => select(students).get();
 
   Stream<List<Student>> watchAllStudents() => select(students).watch();
->>>>>>> Stashed changes
   Future insertStudent(Student student) => into(students).insert(student);
   Future updateStudent(Student student) => update(students).replace(student);
   Future deleteStudent(Student student) => delete(students).delete(student);
 
-<<<<<<< Updated upstream
-  //queries Users-----------------------------------------------------------------------------------------
-=======
   //queries Groups
 
   Future<List<Group>> getAllGroups() => select(groups).get();
@@ -113,13 +74,8 @@ class QueriesDao extends DatabaseAccessor with _$QueriesDaoMixin {
   Future deleteGroup(Group group) => delete(groups).delete(group);
 
   //queries Users
->>>>>>> Stashed changes
   Future insertUser(User user) => into(users).insert(user);
   Future updateUser(User user) => update(users).replace(user);
   Future deleteUser(User user) => delete(users).delete(user);
 
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

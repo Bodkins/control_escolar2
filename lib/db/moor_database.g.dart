@@ -6,11 +6,7 @@ part of 'moor_database.dart';
 // MoorGenerator
 // **************************************************************************
 
-<<<<<<< Updated upstream
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-=======
 // ignore_for_file: unnecessary_brace_in_string_interps
->>>>>>> Stashed changes
 class Student extends DataClass implements Insertable<Student> {
   final int idStudent;
   final String emailStudent;
@@ -75,11 +71,7 @@ class Student extends DataClass implements Insertable<Student> {
   }
 
   @override
-<<<<<<< Updated upstream
-  StudentsCompanion createCompanion(bool nullToAbsent) {
-=======
   T createCompanion<T extends UpdateCompanion<Student>>(bool nullToAbsent) {
->>>>>>> Stashed changes
     return StudentsCompanion(
       idStudent: idStudent == null && nullToAbsent
           ? const Value.absent()
@@ -101,11 +93,7 @@ class Student extends DataClass implements Insertable<Student> {
       idGroupStudent: idGroupStudent == null && nullToAbsent
           ? const Value.absent()
           : Value(idGroupStudent),
-<<<<<<< Updated upstream
-    );
-=======
     ) as T;
->>>>>>> Stashed changes
   }
 
   Student copyWith(
@@ -154,15 +142,6 @@ class Student extends DataClass implements Insertable<Student> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is Student &&
-<<<<<<< Updated upstream
-          other.idStudent == this.idStudent &&
-          other.emailStudent == this.emailStudent &&
-          other.emailAdvisor == this.emailAdvisor &&
-          other.nameStudent == this.nameStudent &&
-          other.nameAdvisor == this.nameAdvisor &&
-          other.calif == this.calif &&
-          other.idGroupStudent == this.idGroupStudent);
-=======
           other.idStudent == idStudent &&
           other.emailStudent == emailStudent &&
           other.emailAdvisor == emailAdvisor &&
@@ -170,7 +149,6 @@ class Student extends DataClass implements Insertable<Student> {
           other.nameAdvisor == nameAdvisor &&
           other.calif == calif &&
           other.idGroupStudent == idGroupStudent);
->>>>>>> Stashed changes
 }
 
 class StudentsCompanion extends UpdateCompanion<Student> {
@@ -190,23 +168,6 @@ class StudentsCompanion extends UpdateCompanion<Student> {
     this.calif = const Value.absent(),
     this.idGroupStudent = const Value.absent(),
   });
-<<<<<<< Updated upstream
-  StudentsCompanion.insert({
-    this.idStudent = const Value.absent(),
-    @required String emailStudent,
-    @required String emailAdvisor,
-    @required String nameStudent,
-    @required String nameAdvisor,
-    @required int calif,
-    @required int idGroupStudent,
-  })  : emailStudent = Value(emailStudent),
-        emailAdvisor = Value(emailAdvisor),
-        nameStudent = Value(nameStudent),
-        nameAdvisor = Value(nameAdvisor),
-        calif = Value(calif),
-        idGroupStudent = Value(idGroupStudent);
-=======
->>>>>>> Stashed changes
   StudentsCompanion copyWith(
       {Value<int> idStudent,
       Value<String> emailStudent,
@@ -469,11 +430,7 @@ class Group extends DataClass implements Insertable<Group> {
   }
 
   @override
-<<<<<<< Updated upstream
-  GroupsCompanion createCompanion(bool nullToAbsent) {
-=======
   T createCompanion<T extends UpdateCompanion<Group>>(bool nullToAbsent) {
->>>>>>> Stashed changes
     return GroupsCompanion(
       idGroup: idGroup == null && nullToAbsent
           ? const Value.absent()
@@ -487,11 +444,7 @@ class Group extends DataClass implements Insertable<Group> {
       emailUserGroup: emailUserGroup == null && nullToAbsent
           ? const Value.absent()
           : Value(emailUserGroup),
-<<<<<<< Updated upstream
-    );
-=======
     ) as T;
->>>>>>> Stashed changes
   }
 
   Group copyWith(
@@ -525,17 +478,10 @@ class Group extends DataClass implements Insertable<Group> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is Group &&
-<<<<<<< Updated upstream
-          other.idGroup == this.idGroup &&
-          other.nameGroup == this.nameGroup &&
-          other.nameSubject == this.nameSubject &&
-          other.emailUserGroup == this.emailUserGroup);
-=======
           other.idGroup == idGroup &&
           other.nameGroup == nameGroup &&
           other.nameSubject == nameSubject &&
           other.emailUserGroup == emailUserGroup);
->>>>>>> Stashed changes
 }
 
 class GroupsCompanion extends UpdateCompanion<Group> {
@@ -549,17 +495,6 @@ class GroupsCompanion extends UpdateCompanion<Group> {
     this.nameSubject = const Value.absent(),
     this.emailUserGroup = const Value.absent(),
   });
-<<<<<<< Updated upstream
-  GroupsCompanion.insert({
-    this.idGroup = const Value.absent(),
-    @required String nameGroup,
-    @required String nameSubject,
-    @required String emailUserGroup,
-  })  : nameGroup = Value(nameGroup),
-        nameSubject = Value(nameSubject),
-        emailUserGroup = Value(emailUserGroup);
-=======
->>>>>>> Stashed changes
   GroupsCompanion copyWith(
       {Value<int> idGroup,
       Value<String> nameGroup,
@@ -734,11 +669,7 @@ class User extends DataClass implements Insertable<User> {
   }
 
   @override
-<<<<<<< Updated upstream
-  UsersCompanion createCompanion(bool nullToAbsent) {
-=======
   T createCompanion<T extends UpdateCompanion<User>>(bool nullToAbsent) {
->>>>>>> Stashed changes
     return UsersCompanion(
       emailUser: emailUser == null && nullToAbsent
           ? const Value.absent()
@@ -746,11 +677,7 @@ class User extends DataClass implements Insertable<User> {
       passwordUser: passwordUser == null && nullToAbsent
           ? const Value.absent()
           : Value(passwordUser),
-<<<<<<< Updated upstream
-    );
-=======
     ) as T;
->>>>>>> Stashed changes
   }
 
   User copyWith({String emailUser, String passwordUser}) => User(
@@ -772,13 +699,8 @@ class User extends DataClass implements Insertable<User> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is User &&
-<<<<<<< Updated upstream
-          other.emailUser == this.emailUser &&
-          other.passwordUser == this.passwordUser);
-=======
           other.emailUser == emailUser &&
           other.passwordUser == passwordUser);
->>>>>>> Stashed changes
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
@@ -788,14 +710,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.emailUser = const Value.absent(),
     this.passwordUser = const Value.absent(),
   });
-<<<<<<< Updated upstream
-  UsersCompanion.insert({
-    @required String emailUser,
-    @required String passwordUser,
-  })  : emailUser = Value(emailUser),
-        passwordUser = Value(passwordUser);
-=======
->>>>>>> Stashed changes
   UsersCompanion copyWith(
       {Value<String> emailUser, Value<String> passwordUser}) {
     return UsersCompanion(
@@ -862,11 +776,7 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   @override
-<<<<<<< Updated upstream
-  Set<GeneratedColumn> get $primaryKey => {emailUser};
-=======
   Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
->>>>>>> Stashed changes
   @override
   User map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
@@ -892,35 +802,13 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
-<<<<<<< Updated upstream
-  _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-=======
   _$AppDatabase(QueryExecutor e) : super(const SqlTypeSystem.withDefaults(), e);
->>>>>>> Stashed changes
   $StudentsTable _students;
   $StudentsTable get students => _students ??= $StudentsTable(this);
   $GroupsTable _groups;
   $GroupsTable get groups => _groups ??= $GroupsTable(this);
   $UsersTable _users;
   $UsersTable get users => _users ??= $UsersTable(this);
-<<<<<<< Updated upstream
-  QueriesDao _queriesDao;
-  QueriesDao get queriesDao => _queriesDao ??= QueriesDao(this as AppDatabase);
   @override
   List<TableInfo> get allTables => [students, groups, users];
 }
-
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
-mixin _$QueriesDaoMixin on DatabaseAccessor<GeneratedDatabase> {
-  $StudentsTable get students => db.students;
-  $GroupsTable get groups => db.groups;
-  $UsersTable get users => db.users;
-}
-=======
-  @override
-  List<TableInfo> get allTables => [students, groups, users];
-}
->>>>>>> Stashed changes

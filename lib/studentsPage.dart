@@ -15,8 +15,6 @@ class StudentsPage extends StatefulWidget {
 
 class _StudentsPageState extends State<StudentsPage> {
   String correos;
-<<<<<<< Updated upstream
-=======
 
   StreamBuilder<List<Student>> _buildStudentList(BuildContext context ){
     final database = Provider.of<AppDatabase>(context);
@@ -39,36 +37,12 @@ class _StudentsPageState extends State<StudentsPage> {
     );
   }
 
->>>>>>> Stashed changes
 
   @override
   void didUpdateWidget(StudentsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     setState(() {});
-<<<<<<< Updated upstream
-  }
-
-  StreamBuilder<List<Student>> _buildStudentList(BuildContext context ){
-    final database = Provider.of<AppDatabase>(context);
-    return StreamBuilder(
-      stream: database.watchAllStudents(),
-      builder: (context, AsyncSnapshot<List<Student>> snapshot){
-        final students = snapshot.data?? List();
-
-        return ListView.builder(
-          itemCount: students.length,
-          itemBuilder: (_, index) {
-
-            final itemStudent = students[index];
-            correos+= itemStudent.emailStudent.toString()+","+ itemStudent.emailAdvisor.toString()+",";
-            return _buiListItem(itemStudent, database);
-          },
-        );
-      },
-    );
-=======
->>>>>>> Stashed changes
   }
 
 
@@ -88,15 +62,11 @@ class _StudentsPageState extends State<StudentsPage> {
               var url = 'mailto:$correos';
               if (await canLaunch(url)) {
                 await launch(url);
-<<<<<<< Updated upstream
-=======
                 correos="";
->>>>>>> Stashed changes
               } else {
                 throw 'Could not launch $url';
               }
 
-<<<<<<< Updated upstream
 
 
             },
@@ -118,29 +88,6 @@ class _StudentsPageState extends State<StudentsPage> {
           height: 50.0,
         ),
       ),
-=======
-
-
-            },
-          ),
-
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: _buildStudentList(context),
-            )
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromRGBO(249, 170, 51, 1),
-        shape: const CircularNotchedRectangle(),
-        child: Container(
-          height: 50.0,
-        ),
-      ),
->>>>>>> Stashed changes
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey,
         onPressed: () {
@@ -153,47 +100,6 @@ class _StudentsPageState extends State<StudentsPage> {
     );
   }
 }
-<<<<<<< Updated upstream
-
-StreamBuilder<List<Student>> _buildStudentList(BuildContext context){
-  final database = Provider.of<QueriesDao>(context);
-  return StreamBuilder(
-    stream: database.watchAllStudents(database.students.idStudent),
-    builder: (context, AsyncSnapshot<List<Student>> snapshot){
-      final students = snapshot.data?? List();
-
-      return ListView.builder(
-        itemCount: students.length,
-        itemBuilder: (_, index) {
-          final itemStudent = students[index];
-          return _buiListItem(itemStudent, database);
-        },
-      );
-    },
-  );
-}
-
-Widget _buiListItem (Student itemStudent, QueriesDao database){
-  return Slidable(
-    actionPane: SlidableDrawerActionPane(),
-    secondaryActions: <Widget>[
-      IconSlideAction(
-        caption: 'Borrar',
-        color: Colors.red,
-        icon: Icons.delete,
-        onTap: () => 
-        database.deleteStudent(itemStudent),
-      )
-    ],
-    child: CheckboxListTile(
-
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-
-          Container(
-
-=======
 
 
 
@@ -226,7 +132,6 @@ Widget _buiListItem (Student itemStudent, AppDatabase database){
 
           Container(
 
->>>>>>> Stashed changes
             height: 20,
 
             alignment: Alignment.topLeft,
@@ -253,7 +158,6 @@ Widget _buiListItem (Student itemStudent, AppDatabase database){
 
         ],
 
-<<<<<<< Updated upstream
       ),
       subtitle: Row(
         children: <Widget>[
@@ -285,39 +189,6 @@ Widget _buiListItem (Student itemStudent, AppDatabase database){
           ),
         ],
       ),
-=======
-      ),
-      subtitle: Row(
-        children: <Widget>[
-          Container(
-            margin:EdgeInsets.fromLTRB(20, 0, 10, 0),
-            child: Text("Tutor: ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),),
-          ),
-          Container(
-            height: 20,
-            alignment: Alignment.topLeft,
-            child: Text(itemStudent.nameAdvisor , style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),),
-          ),
-          Container(
-            height: 20,
-            alignment: Alignment.topLeft,
-            child: FlatButton(
-
-              child: Text(itemStudent.emailAdvisor, style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),),
-              onPressed: ()async{
-                var correo= itemStudent.emailAdvisor.toString();
-                var url = 'mailto:$correo';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ) ,
-          ),
-        ],
-      ),
->>>>>>> Stashed changes
       value: true,
       onChanged: (newValue) {
         database.updateStudent(itemStudent.copyWith());
