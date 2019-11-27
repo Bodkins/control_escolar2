@@ -59,6 +59,7 @@ class AppDatabase extends _$AppDatabase {
   //queries Students
 
   Future<List<Student>> getAllStudents() => select(students).get();
+  List<Student> getStudents()=> select(students).get() as List<Student>;
   Stream<List<Student>> watchAllStudents() => select(students).watch();
   Future insertStudent(Student student) => into(students).insert(student);
   Future updateStudent(Student student) => update(students).replace(student);
