@@ -104,11 +104,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             final database = Provider.of<AppDatabase>(context);
-                            final user = User(
-                              emailUser: emailController.text,
-                              passwordUser: passwordController.text
+                            final usuario = User(
+                              passwordUser: passwordController.text.toString(),
+                              emailUser: emailController.text.toString(),
                               );
-                              database.insertUser(user);
+                              database.insertUser(usuario);
                            
                            //print(database.users.emailUser);
                            //print(database.users.passwordUser);
@@ -273,18 +273,21 @@ textFormFieldPassword(TextEditingController t, String label, String hint,
         cursorColor: Colors.deepOrangeAccent,
         style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
 
-
+        //onSaved: (valo) => _password = valo ,
+        onChanged: (valo){
+          _password = valo;
+        },
         validator: (value) {
           if (value.isEmpty) {
             return 'Introduce contraseña';
           }
           else{
-            if(value.length<=8){
-              return 'La contraseña debe de ser de al menos 8 caracteres';
+            if(value.length<=5){
+              return 'La contraseña debe de ser de al menos 6 caracteres';
             }
           }
         },
-        onSaved: (value) => _password = value ,
+
 
         controller: t,
         textCapitalization: TextCapitalization.words,
@@ -327,15 +330,20 @@ textFormFieldConfirmPassword(TextEditingController t, String label, String hint,
         obscureText: true,
         cursorColor: Colors.deepOrangeAccent,
         style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
-        onSaved: (value) => _passwordConfirm = value ,
+
+        onChanged: (value){
+          _passwordConfirm = value;
+        },
         validator: (value) {
           if (value.isEmpty) {
             return 'Confirmar contraseña';
           }
           else{
-            if(_passwordConfirm!=_password){
+            if(_passwordConfirm !=_password){
+
 
 return 'la contraseña no son iguales';
+
             }
 
           }

@@ -22,7 +22,8 @@ class Students extends Table {
   TextColumn get nameStudent => text().withLength(min: 1, max: 50)();
   TextColumn get nameAdvisor => text().withLength(min: 1, max: 50)();
   IntColumn get calif => integer()();
-  IntColumn get idGroupStudent => integer()();
+  IntColumn get idGroupStudent => integer().nullable().customConstraint('NULLABLE REFERENCES Groups(idGroup)')();
+
 
   @override
   Set<Column> get primaryKey => {idStudent};
@@ -40,10 +41,9 @@ class Groups extends Table{
 
 class Users extends Table {
   TextColumn get emailUser => text()();
-  TextColumn get passwordUser => text().named('passwordUser').customConstraint('passwordUser >= 8')();
+  TextColumn get passwordUser => text()();
 
-  @override
-  Set<Column> get primaryKey => {emailUser};
+
 
 }
 

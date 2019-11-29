@@ -50,24 +50,28 @@ class _AddStudentState extends State<AddStudent> {
                   "Nombre del estudiante",
                   "Introduzca el nombre del estudiante",
                   Icons.face,
+                  false
                 ),
                 textFormField(
                   emailStudentEditingController,
                   "Correo del estudiante",
                   "Introduzca el correo del estudiante",
                   Icons.email,
+                  true
                 ),
                 textFormField(
                   nameAdvisorEditingController,
                   "Nombre del tutor",
                   "Introduzca el nombre del tutor",
                   Icons.face,
+                  false
                 ),
                 textFormField(
                   emailAdvisorEditingController,
                   "Correo del tutor",
                   "Introduzca el correo del tutor",
                   Icons.email,
+                  true
                 ),
                 RaisedButton(
                   color: Colors.grey,
@@ -83,13 +87,15 @@ class _AddStudentState extends State<AddStudent> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       final database = Provider.of<AppDatabase>(context);
+
                       final student = Student(
                         nameStudent: nameStudentEditingController.text,
                         emailStudent: emailStudentEditingController.text,
                         nameAdvisor: nameAdvisorEditingController.text,
                         emailAdvisor: emailAdvisorEditingController.text,
                         calif: 100,
-                        idGroupStudent: 1,
+
+                        idGroupStudent: 1  ,
                       );
                       database.insertStudent(student);
                       Navigator.pop(context);
@@ -106,7 +112,7 @@ class _AddStudentState extends State<AddStudent> {
   }
 
   textFormField(
-      TextEditingController t, String label, String hint, IconData iconData) {
+      TextEditingController t, String label, String hint, IconData iconData, bool isEmail) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -115,6 +121,11 @@ class _AddStudentState extends State<AddStudent> {
         validator: (value) {
           if (value.isEmpty) {
             return 'Campo obligatorio';
+          }
+          else {
+            if (isEmail && !value.contains('@')) {
+              return 'Email invalido';
+            }
           }
         },
         controller: t,

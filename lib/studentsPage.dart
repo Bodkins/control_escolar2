@@ -18,6 +18,7 @@ class _StudentsPageState extends State<StudentsPage> {
 
   StreamBuilder<List<Student>> _buildStudentList(BuildContext context ){
     final database = Provider.of<AppDatabase>(context);
+    correos="";
     return StreamBuilder(
       stream: database.watchAllStudents(),
       builder: (context, AsyncSnapshot<List<Student>> snapshot){
@@ -62,7 +63,7 @@ class _StudentsPageState extends State<StudentsPage> {
               var url = 'mailto:$correos';
               if (await canLaunch(url)) {
                 await launch(url);
-                correos="";
+
               } else {
                 throw 'Could not launch $url';
               }
