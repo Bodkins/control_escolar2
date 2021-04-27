@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'db/moor_database.dart';
 
 
 
-bool _formComplete = false;
+//bool _formComplete = false;
 String _password ;
 String _passwordConfirm ;
 class SignUpPage extends StatefulWidget {
@@ -20,7 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    var _isEnable = null;
+//    var _isEnable = null;
 
 
     return Scaffold(
@@ -43,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 250,
+              height: 150,
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -97,14 +100,23 @@ class _SignUpPageState extends State<SignUpPage> {
                               fontSize: 20),
                         ),
                       ),
-                      onPressed: () {
-
-
-
+                      onPressed: () {                        
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-                            print(_password);
-                            print(_passwordConfirm);
+                            final database = Provider.of<AppDatabase>(context);
+                            final usuario = User(
+                              passwordUser: passwordController.text.toString(),
+                              emailUser: emailController.text.toString(),
+                              );
+                              database.insertUser(usuario);
+                           
+                           //print(database.users.emailUser);
+                           //print(database.users.passwordUser);
+                           //print(database.users.primaryKey);
+                            //print(_password);
+                            //print(_passwordConfirm);
+                            
+                            
                             Navigator.pushNamed(context, '/loginPage');
                           }
 
@@ -261,18 +273,21 @@ textFormFieldPassword(TextEditingController t, String label, String hint,
         cursorColor: Colors.deepOrangeAccent,
         style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
 
-
+        //onSaved: (valo) => _password = valo ,
+        onChanged: (valo){
+          _password = valo;
+        },
         validator: (value) {
           if (value.isEmpty) {
             return 'Introduce contraseña';
           }
           else{
-            if(value.length<=8){
-              return 'La contraseña debe de ser de al menos 8 caracteres';
+            if(value.length<=5){
+              return 'La contraseña debe de ser de al menos 6 caracteres';
             }
           }
         },
-        onSaved: (value) => _password = value ,
+
 
         controller: t,
         textCapitalization: TextCapitalization.words,
@@ -315,15 +330,20 @@ textFormFieldConfirmPassword(TextEditingController t, String label, String hint,
         obscureText: true,
         cursorColor: Colors.deepOrangeAccent,
         style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
-        onSaved: (value) => _passwordConfirm = value ,
+
+        onChanged: (value){
+          _passwordConfirm = value;
+        },
         validator: (value) {
           if (value.isEmpty) {
             return 'Confirmar contraseña';
           }
           else{
-            if(_passwordConfirm!=_password){
+            if(_passwordConfirm !=_password){
+
 
 return 'la contraseña no son iguales';
+
             }
 
           }

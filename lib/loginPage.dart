@@ -1,5 +1,3 @@
-import 'package:control_escolar/principalPage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyLoginPage extends StatefulWidget {
@@ -16,9 +14,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       //backgroundColor: Color.fromRGBO(249, 170, 51, 1),
-
       body: Form(
         key: _formKey,
         child: Container(
@@ -37,7 +35,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 300,
+              height: 200,
               decoration: BoxDecoration(
                 // image: DecorationImage(
                 //  image: AssetImage('assets/images/background.jpg'),
@@ -137,6 +135,34 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      color: Colors.transparent,
+                      disabledColor: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Ayuda",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20),
+                        ),
+                      ),
+                      onPressed: () {
+
+                        Navigator.pushNamed(context, '/helpPage');
+
+
+                      },
+                    ),
+                  ),
+
                 ],
               ),
             ),
@@ -182,6 +208,7 @@ textFormField(
             }
 
           },
+          keyboardType: TextInputType.emailAddress,
           controller: t,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
@@ -223,10 +250,14 @@ obscureText: true,
           style: TextStyle(color: Color.fromRGBO(249, 170, 51, 1)),
           validator: (value) {
             if (value.isEmpty) {
-              return 'Introduce algun texto';
+              return 'Introduce la contraseña';
+            }
+            if(value.length<5){
+              return 'El tamaño de la contraseña debe ser de al menos 6 carácteres';
             }
 
           },
+          keyboardType: TextInputType.visiblePassword,
           controller: t,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(

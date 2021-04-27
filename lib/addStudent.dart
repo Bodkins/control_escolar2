@@ -7,15 +7,18 @@ import 'package:provider/provider.dart';
 //import 'package:control_escolar/db/database.dart';
 
 
-class AddGroup extends StatefulWidget {
+
+class AddStudent extends StatefulWidget {
   @override
-  _AddGroupState createState() => _AddGroupState();
+  _AddStudentState createState() => _AddStudentState();
 }
 
-class _AddGroupState extends State<AddGroup> {
-  TextEditingController nameGroupEditingController = TextEditingController();
+class _AddStudentState extends State<AddStudent> {
 
-  TextEditingController nameMateEditingController = TextEditingController();
+  TextEditingController nameStudentEditingController = TextEditingController();
+  TextEditingController nameAdvisorEditingController = TextEditingController();
+  TextEditingController emailStudentEditingController = TextEditingController();
+  TextEditingController emailAdvisorEditingController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -39,22 +42,36 @@ class _AddGroupState extends State<AddGroup> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-               Container(
-                 child: Image.asset('assets/images/grupo.png'),
-               ),
-                textFormField(
-                  nameGroupEditingController,
-                  "Nombre del grupo",
-                  "Introduzca el nombre del grupo",
-                  Icons.group,
-                  "Campo obligatorio"
+                FlutterLogo(
+                  size: 300,
                 ),
                 textFormField(
-                  nameMateEditingController,
-                  "Nombre de la materia",
-                  "Introduzca la materia",
-                  Icons.assessment,
-                    "Campo obligatorio"
+                  nameStudentEditingController,
+                  "Nombre del estudiante",
+                  "Introduzca el nombre del estudiante",
+                  Icons.face,
+                  false
+                ),
+                textFormField(
+                  emailStudentEditingController,
+                  "Correo del estudiante",
+                  "Introduzca el correo del estudiante",
+                  Icons.email,
+                  true
+                ),
+                textFormField(
+                  nameAdvisorEditingController,
+                  "Nombre del tutor",
+                  "Introduzca el nombre del tutor",
+                  Icons.face,
+                  false
+                ),
+                textFormField(
+                  emailAdvisorEditingController,
+                  "Correo del tutor",
+                  "Introduzca el correo del tutor",
+                  Icons.email,
+                  true
                 ),
                 RaisedButton(
                   color: Colors.grey,
@@ -70,12 +87,17 @@ class _AddGroupState extends State<AddGroup> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       final database = Provider.of<AppDatabase>(context);
-                      final group = Group(
-                        nameGroup: nameGroupEditingController.text,
-                        nameSubject: nameMateEditingController.text,
-                        emailUserGroup: database.users.emailUser.typeName,
+
+                      final student = Student(
+                        nameStudent: nameStudentEditingController.text,
+                        emailStudent: emailStudentEditingController.text,
+                        nameAdvisor: nameAdvisorEditingController.text,
+                        emailAdvisor: emailAdvisorEditingController.text,
+                        calif: 100,
+
+                        idGroupStudent: 1  ,
                       );
-                      database.insertGroup(group);
+                      database.insertStudent(student);
                       Navigator.pop(context);
                     }
                     
@@ -90,7 +112,7 @@ class _AddGroupState extends State<AddGroup> {
   }
 
   textFormField(
-      TextEditingController t, String label, String hint, IconData iconData, String mensaje) {
+      TextEditingController t, String label, String hint, IconData iconData, bool isEmail) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -98,7 +120,12 @@ class _AddGroupState extends State<AddGroup> {
       child: TextFormField(
         validator: (value) {
           if (value.isEmpty) {
-            return mensaje;
+            return 'Campo obligatorio';
+          }
+          else {
+            if (isEmail && !value.contains('@')) {
+              return 'Email invalido';
+            }
           }
         },
         controller: t,
@@ -109,10 +136,6 @@ class _AddGroupState extends State<AddGroup> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
       ),
-
     );
   }
-
-
-
 }
